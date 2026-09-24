@@ -31,9 +31,12 @@ _CITATION_LINE_RE = re.compile(
     re.IGNORECASE,
 )
 
-
 def fetch_url_text(url: str, timeout: int = 15) -> str:
-    resp = requests.get(url, timeout=timeout, headers={"User-Agent": "SupportKB-Bot/1.0"})
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    }
+    resp = requests.get(url, timeout=timeout, headers=headers)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
     for selector in _NOISE_SELECTORS:
